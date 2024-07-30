@@ -37,9 +37,10 @@ RUN BUILD_DEPS=" \
     su-exec \
     perl \
     curl \
-    shadow
-RUN update-ca-certificates
-RUN WEECHAT_TARBALL="$(curl -s https://api.github.com/repos/weechat/weechat/releases/latest | grep tarball_url | awk '{ print $2 }' | sed 's/,$//' | sed 's/"//g' );" \
+    shadow \
+    tar
+RUN update-ca-certificates \
+&& WEECHAT_TARBALL="$(curl -s https://api.github.com/repos/weechat/weechat/releases/latest | grep tarball_url | awk '{ print $2 }' | sed 's/,$//' | sed 's/"//g' );" \
 && curl -sSL $WEECHAT_TARBALL -o /tmp/weechat.tar.gz \
 && mkdir -p /tmp/weechat/build \
 && tar xzf /tmp/weechat.tar.gz --strip 1 -C /tmp/weechat \
