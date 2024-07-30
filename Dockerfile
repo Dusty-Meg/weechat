@@ -25,7 +25,13 @@ RUN BUILD_DEPS=" \
     ncurses-dev \
     libgcrypt-dev \
     ca-certificates \
+    libcurl4-gnutls-dev \
+    libgcrypt20-dev \
+    libgnutls28-dev \
+    zlib1g-dev \
     jq \
+    pkg-config \
+    libncurses-dev \
     tar" \
     && apk -U upgrade && apk add \
     ${BUILD_DEPS} \
