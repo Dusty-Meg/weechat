@@ -39,7 +39,8 @@ RUN apk -U upgrade && apk add \
     curl \
     shadow
 RUN update-ca-certificates
-RUN curl -sSL $(curl -sS https://api.github.com/repos/weechat/weechat/releases/latest | jq .tarball_url -r) -o /tmp/weechat.tar.gz
+RUN WEECHAT_TARBALL=curl -sS https://api.github.com/repos/weechat/weechat/releases/latest | jq .tarball_url -r
+RUN curl -sSL $WEECHAT_TARBALL -o /tmp/weechat.tar.gz
 RUN mkdir -p /tmp/weechat/build
 RUN tar xzf /tmp/weechat.tar.gz --strip 1 -C /tmp/weechat
 RUN cd /tmp/weechat/build
