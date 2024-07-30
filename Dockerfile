@@ -27,7 +27,7 @@ RUN BUILD_DEPS=" \
     ca-certificates \
     jq \
     tar" \
-  && apk -U upgrade && apk add \
+    && apk -U upgrade && apk add \
     ${BUILD_DEPS} \
     gettext \
     gnutls \
@@ -38,21 +38,21 @@ RUN BUILD_DEPS=" \
     perl \
     curl \
     shadow \
-    tar
-RUN update-ca-certificates \
-&& WEECHAT_TARBALL="$(curl -s https://api.github.com/repos/weechat/weechat/releases/latest | grep tarball_url | awk '{ print $2 }' | sed 's/,$//' | sed 's/"//g' )" \
-&& curl -sSL $WEECHAT_TARBALL -o /tmp/weechat.tar.gz \
-&& mkdir -p /tmp/weechat/build \
-&& tar xzf /tmp/weechat.tar.gz --strip 1 -C /tmp/weechat \
-&& cd /tmp/weechat/build \
-&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=None -DENABLE_MAN=ON -DENABLE_TCL=OFF -DENABLE_GUILE=OFF -DENABLE_JAVASCRIPT=OFF -DENABLE_PHP=OFF \
-&& make && make install \
-&& mkdir /weechat \
-&& addgroup -g $GID -S weechat \
-&& adduser -u $UID -D -S -h /weechat -s /sbin/nologin -G weechat weechat \
-&& apk del ${BUILD_DEPS} \
-&& rm -rf /var/cache/apk/* \
-&& rm -rf /tmp/*
+    tar \
+    && update-ca-certificates \
+    && WEECHAT_TARBALL="$(curl -s https://api.github.com/repos/weechat/weechat/releases/latest | grep tarball_url | awk '{ print $2 }' | sed 's/,$//' | sed 's/"//g' )" \
+    && curl -sSL $WEECHAT_TARBALL -o /tmp/weechat.tar.gz \
+    && mkdir -p /tmp/weechat/build \
+    && tar xzf /tmp/weechat.tar.gz --strip 1 -C /tmp/weechat \
+    && cd /tmp/weechat/build \
+    && cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=None -DENABLE_MAN=ON -DENABLE_TCL=OFF -DENABLE_GUILE=OFF -DENABLE_JAVASCRIPT=OFF -DENABLE_PHP=OFF \
+    && make && make install \
+    && mkdir /weechat \
+    && addgroup -g $GID -S weechat \
+    && adduser -u $UID -D -S -h /weechat -s /sbin/nologin -G weechat weechat \
+    && apk del ${BUILD_DEPS} \
+    && rm -rf /var/cache/apk/* \
+    && rm -rf /tmp/*
 
 VOLUME /weechat
 
