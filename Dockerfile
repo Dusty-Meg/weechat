@@ -72,6 +72,8 @@ RUN BUILD_DEPS=" \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/*
 
+RUN ["chmod", "+x", "/run.sh"]
+
 VOLUME /weechat
 
 WORKDIR /weechat
