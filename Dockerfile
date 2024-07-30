@@ -45,6 +45,24 @@ RUN BUILD_DEPS=" \
     curl \
     shadow \
     tar \
+    acl-dev \
+    asciidoctor \
+    cjson-dev \
+    cmake \
+    curl \
+    curl-dev \
+    g++ \
+    gcc \
+    gettext-dev \
+    gnupg \
+    gnutls-dev \
+    libgcrypt-dev \
+    make \
+    ncurses-dev \
+    pkgconf \
+    xz \
+    zlib-dev \
+    zstd-dev \
     && update-ca-certificates \
     && WEECHAT_TARBALL="$(curl -s https://api.github.com/repos/weechat/weechat/releases/latest | grep tarball_url | awk '{ print $2 }' | sed 's/,$//' | sed 's/"//g' )" \
     && curl -sSL $WEECHAT_TARBALL -o /tmp/weechat.tar.gz \
