@@ -26,8 +26,8 @@ RUN BUILD_DEPS=" \
     libgcrypt-dev \
     ca-certificates \
     jq \
-    tar" 
-RUN apk -U upgrade && apk add \
+    tar" \
+  && apk -U upgrade && apk add \
     ${BUILD_DEPS} \
     gettext \
     gnutls \
@@ -39,8 +39,8 @@ RUN apk -U upgrade && apk add \
     curl \
     shadow
 RUN update-ca-certificates
-RUN WEECHAT_TARBALL="$(curl -s https://api.github.com/repos/weechat/weechat/releases/latest | grep tarball_url | awk '{ print $2 }' | sed 's/,$//' | sed 's/"//g' );"
-RUN curl -sSL $WEECHAT_TARBALL -o /tmp/weechat.tar.gz
+RUN WEECHAT_TARBALL="$(curl -s https://api.github.com/repos/weechat/weechat/releases/latest | grep tarball_url | awk '{ print $2 }' | sed 's/,$//' | sed 's/"//g' );" \
+&& curl -sSL $WEECHAT_TARBALL -o /tmp/weechat.tar.gz
 RUN mkdir -p /tmp/weechat/build
 RUN tar xzf /tmp/weechat.tar.gz --strip 1 -C /tmp/weechat
 RUN cd /tmp/weechat/build
